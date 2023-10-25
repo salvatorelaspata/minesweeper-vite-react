@@ -1,0 +1,49 @@
+.minesweeper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.minesweeper .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.minesweeper .header .bombos {
+  display: flex;
+  align-items: center;
+}
+
+.minesweeper .header .status .playng,
+.minesweeper .header .status .lose,
+.minesweeper .header .status .win {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.minesweeper .header .status .lose {
+  color: #f00;
+}
+
+.minesweeper .header .status .win {
+  color: #0f0;
+}
+
+.minesweeper .board {
+  border: 1px solid #ccc;
+  background-color: #eee;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.minesweeper .board .row {
+  display: flex;
+}
