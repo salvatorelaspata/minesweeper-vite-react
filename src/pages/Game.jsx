@@ -37,13 +37,12 @@ const Game = () => {
 
   return (
     <>
-      <h1>Minesweeper</h1>
+      <div className="minesweeper-header">
+        <div className="config.numMines">{config.numMines}</div>
+        <div className={`status ${game.status}`}>{game.status}</div>
+        <button onClick={() => _generate()}>New Game</button>
+      </div>
       <div className="minesweeper">
-        <div className="header">
-          <div className="config.numMines">{config.numMines}</div>
-          <div className={`status ${game.status}`}>{game.status}</div>
-          <button onClick={() => _generate()}>New Game</button>
-        </div>
         <div className="board">{renderBoard()}</div>
       </div>
     </>

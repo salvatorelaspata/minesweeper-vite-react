@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom';
 import './Header.css';
 
-function Header () {
+function Header ({ pathname }) {
   return (
     <nav>
       <ul>
-        <li>
+        <li className={"/" === pathname ? 'active' : ''}>
           <Link to="/">Home</Link>
         </li>
-        <li>
-          <Link to="/game">Game</Link>
+        <li className={"/game" === pathname ? 'active' : ''}>
+          <Link to="/game" >Game</Link>
         </li>
-        <li>
-          <Link to="/settings">Setting</Link>
+        <li className={"/settings" === pathname ? 'active' : ''}>
+          <Link to="/settings" >Setting</Link>
         </li>
       </ul>
     </nav>

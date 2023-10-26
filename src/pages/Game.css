@@ -1,12 +1,17 @@
 .minesweeper {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  overflow-x: auto;
 }
 
-.minesweeper .header {
+.minesweeper .minesweeper-header {
+  overflow: hidden;
+}
+
+.minesweeper-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,24 +22,24 @@
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
-.minesweeper .header .bombos {
+.minesweeper-header .bombos {
   display: flex;
   align-items: center;
 }
 
-.minesweeper .header .status .playng,
-.minesweeper .header .status .lose,
-.minesweeper .header .status .win {
+.minesweeper-header .status .playng,
+.minesweeper-header .status .lose,
+.minesweeper-header .status .win {
   font-size: 20px;
   font-weight: bold;
   margin-left: 10px;
 }
 
-.minesweeper .header .status .lose {
+.minesweeper-header .status .lose {
   color: #f00;
 }
 
-.minesweeper .header .status .win {
+.minesweeper-header .status .win {
   color: #0f0;
 }
 

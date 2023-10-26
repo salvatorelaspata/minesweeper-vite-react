@@ -20,6 +20,10 @@ nav ul li {
   text-align: center;
 }
 
+nav ul li.active {
+  background-color: #aaa;
+}
+
 nav ul li a {
   display: block;
   padding: 5px;
