@@ -74,17 +74,16 @@ const _getAdiacentCells = (plane, x, y) => {
 
 // function to reveal the cell and all the adiacent cells
 export const revealCell = (plane, x, y, i = 0) => {
-  console.log('revealCell', x, y)
-  const cell = plane[x][y]
+  if (plane[x][y].neighborCount) return
   const adiacentCells = _getAdiacentCells(plane, x, y)
-  console.log('adiacentCells', adiacentCells)
-  if (cell.neighborCount > 0) return
-  if (adiacentCells.every((c) => c.neighborCount === 0) && i === 0)
+  if (adiacentCells.every((c) => !c.isMine))
     adiacentCells.forEach((_cell) => {
-      console.log(_cell)
-      if (_cell.neighborCount === 0 && !_cell.isChecked) {
+      if (!_cell.neighborCount && !_cell.isChecked) {
         plane[_cell.x][_cell.y].isChecked = true
         revealCell(plane, _cell.x, _cell.y, i++)
+      }
+      else if (_cell.neighborCount && i > 0) {
+        plane[_cell.x][_cell.y].isChecked = true
       }
     })
 }

@@ -24,11 +24,16 @@ const Game = () => {
       return <div className="row" key={rowIndex}>
         {row.map((cell, colIndex) => {
           return (
-            <Cell key={`${rowIndex}-${colIndex}`} cell={cell} onSelected={() => {
-              if (cell.isMine) return action.setGameStatus('lost')
-              if (!cell.isChecked) revealCell(game.plane, rowIndex, colIndex)
-              cell.isChecked = true
-            }} />
+            <Cell key={`${rowIndex}-${colIndex}`}
+              y={rowIndex}
+              x={colIndex}
+              cell={cell}
+              onSelected={() => {
+                const isNOTLost = game.status !== 'lost'
+                if (cell.isMine) action.setGameStatus('lost')
+                else if (!cell.isChecked && isNOTLost) action.revealCell(rowIndex, colIndex)
+                isNOTLost && action.setChecked(rowIndex, colIndex)
+              }} />
           )
         })}
       </div>
