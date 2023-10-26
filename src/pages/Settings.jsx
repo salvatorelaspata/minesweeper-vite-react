@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import './Settings.css'
+import { action, useStore } from '../store';
 function Settings () {
+  const { config } = useStore();
   const [formValues, setFormValues] = useState({
     difficulty: 'easy',
-    boardSize: '',
-    numMines: '',
+    boardCol: config.boardCol,
+    boardRow: config.boardRow,
+    numMines: config.numMines
   });
 
   const handleInputChange = (event) => {
@@ -14,7 +17,7 @@ function Settings () {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formValues);
+    action.setConfig(formValues)
   };
 
   return (
@@ -30,7 +33,8 @@ function Settings () {
         </div>
         <div className='settings-input-container'>
           <label className='settings-label'>Board size:</label>
-          <input className="settings-input" type="text" name="boardSize" value={formValues.boardSize} onChange={handleInputChange} />
+          <input className="settings-input" type="text" name="boardCol" value={formValues.boardCol} onChange={handleInputChange} />
+          <input className="settings-input" type="text" name="boardRow" value={formValues.boardRow} onChange={handleInputChange} />
         </div>
         <div className='settings-input-container'>
           <label className='settings-label'>Number of mines:</label>

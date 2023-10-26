@@ -1,35 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { generatePlane, populatePlane, revealCell } from '../hooks/main'
+import React, { useState, useEffect, useMemo } from 'react';
+import { revealCell } from '../hooks/main'
 
 import './Game.css'
 import Cell from '../components/Cell';
+import { useStore, action } from '../store';
 
 
-const Game = ({ rows, cols, bombs }) => {
-  const [plane, setPlane] = useState([])
-  const [{ column, row }, setPlaneSize] = useState({ column: cols, row: rows })
-  const [minesCount, setMinesCount] = useState(bombs)
-  const [gameStatus, setGameStatus] = useState('playing');
+const Game = () => {
+  const { config, game } = useStore();
 
   const _generate = () => {
-    const _plane = generatePlane(column, row)
-    populatePlane(_plane, minesCount)
-    setPlane(_plane)
+    action.generatePlane()
+    action.populatePlane()
   }
 
   useEffect(() => {
-    _generate()
+    game.status === 'not started' && _generate()
   }, [])
 
   const renderBoard = () => {
-    if (!plane.length) return null
-    return plane.map((row, rowIndex) => {
+    if (!game.plane.length) return null
+    return game.plane.map((row, rowIndex) => {
       return <div className="row" key={rowIndex}>
         {row.map((cell, colIndex) => {
           return (
             <Cell key={`${rowIndex}-${colIndex}`} cell={cell} onSelected={() => {
-              if (cell.isMine) return setGameStatus('lost')
-              if (!cell.isChecked) revealCell(plane, rowIndex, colIndex)
+              if (cell.isMine) return action.setGameStatus('lost')
+              if (!cell.isChecked) revealCell(game.plane, rowIndex, colIndex)
               cell.isChecked = true
             }} />
           )
@@ -43,8 +40,8 @@ const Game = ({ rows, cols, bombs }) => {
       <h1>Minesweeper</h1>
       <div className="minesweeper">
         <div className="header">
-          <div className="bombs">{minesCount}</div>
-          <div className={`status ${gameStatus}`}>{gameStatus}</div>
+          <div className="config.numMines">{config.numMines}</div>
+          <div className={`status ${game.status}`}>{game.status}</div>
           <button onClick={() => _generate()}>New Game</button>
         </div>
         <div className="board">{renderBoard()}</div>
