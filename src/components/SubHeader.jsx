@@ -8,11 +8,11 @@ function SubHeader () {
     let _title = '';
     switch (pathname) {
       case '/':
-        _title = 'Home';
-        break;
-      case '/game':
         _title = 'Game';
         break;
+      // case '/game':
+      //   _title = 'Game';
+      //   break;
       case '/settings':
         _title = 'Settings';
         break;

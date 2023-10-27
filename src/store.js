@@ -1,17 +1,17 @@
 import { proxy, useSnapshot } from 'valtio'
 import { generatePlane, populatePlane, revealCell } from './hooks/main'
-import { DEFAULT_COLUMN, DEFAULT_MINES, DEFAULT_ROW } from './utils/constants'
+import { DEFAULT_COLUMN, DEFAULT_DIFFICULTY, DEFAULT_MINES, DEFAULT_ROW, GAME_STATUS } from './utils/constants'
 
 export const store = proxy({
   config: {
-    difficulty: 'easy',
+    difficulty: DEFAULT_DIFFICULTY,
     boardCol: DEFAULT_COLUMN,
     boardRow: DEFAULT_ROW,
     numMines: DEFAULT_MINES
   },
   game: {
     plane: [],
-    status: 'not started'
+    status: GAME_STATUS.NOT_STARTED
   }
 })
 
@@ -36,6 +36,7 @@ export const action = {
     store.game.status = status
   },
   setConfig (config) {
+    debugger;
     store.config = config
   },
   setChecked (row, col) {
@@ -44,6 +45,18 @@ export const action = {
   setFlagged (row, col) {
     store.game.plane[row][col].isFlagged = !store.game.plane[row][col].isFlagged
   },
+  checkWin () {
+    let count = 0
+    store.game.plane.forEach(row => {
+      row.forEach(cell => {
+        if (!cell.isChecked) count++
+      })
+    })
+    console.log(count, store.config.numMines)
+    if (count === store.config.numMines) {
+      action.setGameStatus('won')
+    }
+  }
 }
 
 export function useStore () {

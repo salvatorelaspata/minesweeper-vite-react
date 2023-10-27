@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 // pages
-import Home from './pages/Home';
+// import Home from './pages/Home';
 import ErrorPage from './pages/ErrorPage';
 import Layout from './components/Layout';
 import Game from './pages/Game';
@@ -11,8 +11,8 @@ function App () {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="game" element={<Game />} />
+          {/* <Route index element={<Home />} /> */}
+          <Route index element={<Game />} />
           <Route path='settings' element={<Settings />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>

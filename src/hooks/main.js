@@ -74,15 +74,22 @@ const _getAdiacentCells = (plane, x, y) => {
 
 // function to reveal the cell and all the adiacent cells
 export const revealCell = (plane, x, y, i = 0) => {
+  // 1. se la cella che si sta analizzando contiene un numero non fare nulla
   if (plane[x][y].neighborCount) return
+  // 2. se la cella non contiene un numero è papabile per la ricorsione quindi recupero le celle adiacenti
   const adiacentCells = _getAdiacentCells(plane, x, y)
+  // 3. se non ci sono mine tra le celle adiacenti (every --> se tutte non sono mine)
   if (adiacentCells.every((c) => !c.isMine))
+    // 4. per ogni cella adiacente
     adiacentCells.forEach((_cell) => {
+      // 5. se la cella in esame non contiene un numero (neighborCount) e non è stata già controllata (checked)
       if (!_cell.neighborCount && !_cell.isChecked) {
+        // 6. setta la cella come checked
         plane[_cell.x][_cell.y].isChecked = true
-        revealCell(plane, _cell.x, _cell.y, i++)
+        // 7. richiama la funzione ricorsivamente incrementano l'indice (i)
+        revealCell(plane, _cell.x, _cell.y, i)
       }
-      else if (_cell.neighborCount && i > 0) {
+      else if (_cell.neighborCount) {
         plane[_cell.x][_cell.y].isChecked = true
       }
     })

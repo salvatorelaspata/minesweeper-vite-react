@@ -6,14 +6,14 @@ function Settings () {
   const { config } = useStore();
   const [formValues, setFormValues] = useState({
     difficulty: config.difficulty,
-    boardCol: STANDARD_CONFIG['easy'].boardCol,
-    boardRow: STANDARD_CONFIG['easy'].boardRow,
-    numMines: STANDARD_CONFIG['easy'].numMines,
+    boardCol: config.boardCol,
+    boardRow: config.boardRow,
+    numMines: config.numMines,
   });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormValues({ ...formValues, difficulty: 'custom', [name]: value });
+    setFormValues({ ...formValues, difficulty: 'custom', [name]: parseInt(value) });
   };
 
   const handleInputChangeSelect = (event) => {
@@ -46,8 +46,9 @@ function Settings () {
           </select>
         </div>
         <div className='settings-input-container'>
-          <label className='settings-label'>Board size:</label>
+          <label><span className='settings-label'>Board size </span>(Columns):</label>
           <input className="settings-input" type="text" name="boardCol" value={formValues.boardCol} onChange={handleInputChange} />
+          <label><span className='settings-label'>Board size </span>(Rows):</label>
           <input className="settings-input" type="text" name="boardRow" value={formValues.boardRow} onChange={handleInputChange} />
         </div>
         <div className='settings-input-container'>
@@ -56,6 +57,41 @@ function Settings () {
         </div>
         <button className="settings-submit" type="submit">Submit</button>
       </form>
+      {/* Legend */}
+      <div className='legend'>
+        <h1>Legend</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Difficulty</th>
+              <th>Board Size (Columns)</th>
+              <th>Board Size (Rows)</th>
+              <th>Mines</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries({
+              ...STANDARD_CONFIG,
+              ...{
+                custom: {
+                  boardCol: 'custom',
+                  boardRow: 'custom',
+                  numMines: 'custom'
+                }
+              }
+            }).map(([key, value]) => {
+              return (
+                <tr key={key}>
+                  <td>{key}</td>
+                  <td>{value.boardCol}</td>
+                  <td>{value.boardRow}</td>
+                  <td>{value.numMines}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

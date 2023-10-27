@@ -61,3 +61,29 @@
   color: red;
   margin-top: 10px;
 }
+
+/* Legend */
+.legend {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.legend table {
+  width: 100%;
+}
+
+.legend table thead {
+  font-weight: bold;
+  text-align: left;
+}
+
+.legend table tbody tr td {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+/* capitalize first column */
+.legend table tbody tr td:first-child {
+  text-transform: capitalize;
+  font-weight: bold;
+}

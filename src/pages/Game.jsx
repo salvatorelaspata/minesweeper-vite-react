@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { revealCell } from '../hooks/main'
-
-import './Game.css'
+import React, { useEffect } from 'react';
 import Cell from '../components/Cell';
 import { useStore, action } from '../store';
+
+import './Game.css'
+import { GAME_STATUS } from '../utils/constants';
 
 
 const Game = () => {
@@ -15,8 +15,10 @@ const Game = () => {
   }
 
   useEffect(() => {
-    game.status === 'not started' && _generate()
+    game.status === GAME_STATUS.NOT_STARTED && _generate()
   }, [])
+
+  action.checkWin()
 
   const renderBoard = () => {
     if (!game.plane.length) return null
@@ -45,7 +47,7 @@ const Game = () => {
       <div className="minesweeper-header">
         <div className="config.numMines">{config.numMines}</div>
         <div className={`status ${game.status}`}>{game.status}</div>
-        <button onClick={() => _generate()}>New Game</button>
+        <button onClick={() => { action.setGameStatus('started'); _generate() }}>New Game</button>
       </div>
       <div className="minesweeper">
         <div className="board">{renderBoard()}</div>

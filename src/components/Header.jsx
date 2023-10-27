@@ -6,11 +6,11 @@ function Header ({ pathname }) {
     <nav>
       <ul>
         <li className={"/" === pathname ? 'active' : ''}>
-          <Link to="/">Home</Link>
+          <Link to="/">Minesweeper</Link>
         </li>
-        <li className={"/game" === pathname ? 'active' : ''}>
+        {/* <li className={"/game" === pathname ? 'active' : ''}>
           <Link to="/game" >Game</Link>
-        </li>
+        </li> */}
         <li className={"/settings" === pathname ? 'active' : ''}>
           <Link to="/settings" >Setting</Link>
         </li>
