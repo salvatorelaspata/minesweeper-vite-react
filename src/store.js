@@ -1,5 +1,5 @@
 import { proxy, useSnapshot } from 'valtio'
-import { generatePlane, populatePlane, revealCell } from './hooks/main'
+import { generatePlane, populatePlane, revealCell, revealChecked } from './hooks/main'
 import { DEFAULT_COLUMN, DEFAULT_DIFFICULTY, DEFAULT_MINES, DEFAULT_ROW, GAME_STATUS } from './utils/constants'
 
 export const store = proxy({
@@ -25,6 +25,9 @@ export const action = {
   revealCell (row, col) {
     revealCell(store.game.plane, row, col)
   },
+  revealChecked (row, col) {
+    revealChecked(store.game.plane, row, col)
+  },
   setGameStatus (status) {
     if (status === 'lost' || status === 'won') {
       store.game.plane.forEach(row => {
@@ -36,7 +39,6 @@ export const action = {
     store.game.status = status
   },
   setConfig (config) {
-    debugger;
     store.config = config
   },
   setChecked (row, col) {

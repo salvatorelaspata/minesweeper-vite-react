@@ -30,10 +30,15 @@ const Game = () => {
               y={rowIndex}
               x={colIndex}
               cell={cell}
+              onSelectedChecked={() => {
+                console.log('cell is already checked')
+                action.revealChecked(rowIndex, colIndex)
+              }}
               onSelected={() => {
                 const isNOTLost = game.status !== 'lost'
                 if (cell.isMine) action.setGameStatus('lost')
                 else if (!cell.isChecked && isNOTLost) action.revealCell(rowIndex, colIndex)
+                else console.log('cell is already checked')
                 isNOTLost && action.setChecked(rowIndex, colIndex)
               }} />
           )

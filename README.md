@@ -24,3 +24,16 @@ npm start
 ```
 
 > This command start vite project in socketsupply runtime
+
+
+TODO
+
+[X] BugFix - Responsive design
+
+[X] Feature - Autoclick controllando se la è presente un flag (🚩)
+
+[ ] BugFix - Remove class mine
+
+[ ] Feature - Manage multicolor
+
+[ ] Multiplayer - P2P multiplayer with socketsupply

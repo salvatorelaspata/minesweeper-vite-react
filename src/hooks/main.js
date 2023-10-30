@@ -1,3 +1,5 @@
+import { action } from '../store'
+
 // function to generate a plane of minesweeper and return it as a 2D array
 export const generatePlane = (row, column) => {
   const plane = []
@@ -9,8 +11,8 @@ export const generatePlane = (row, column) => {
         y: j,
         isChecked: false,
         isMine: false,
-        isFlagged: false, // unused
-        isRevealed: false, // unused
+        isFlagged: false,
+        isRevealed: false,
         neighborCount: null,
       })
     }
@@ -55,7 +57,7 @@ const _getNeighborCount = (plane, x, y) => {
   }
 }
 
-const _getAdiacentCells = (plane, x, y) => {
+const _getAdiacentCells = (plane, x, y, includeMine = false) => {
   const _y = plane[0].length
   const _x = plane.length
 
@@ -64,7 +66,7 @@ const _getAdiacentCells = (plane, x, y) => {
     if (i < 0 || i >= _x) continue // skip if out of bound
     for (let j = y - 1; j <= y + 1; j++) {
       if (j < 0 || j >= _y) continue // skip if out of bound
-      if (plane[i][j].isMine) continue // skip if is mine or is already
+      if (plane[i][j].isMine && !includeMine) continue // skip if is mine or is already
       if (x === plane[i][j].x && y === plane[i][j].y) continue // skip if is mine or is already checked (to avoid infinite loop)
       adiacentCells.push(plane[i][j])
     }
@@ -90,7 +92,26 @@ export const revealCell = (plane, x, y, i = 0) => {
         revealCell(plane, _cell.x, _cell.y, i)
       }
       else if (_cell.neighborCount) {
+
         plane[_cell.x][_cell.y].isChecked = true
       }
     })
+}
+
+export const revealChecked = (plane, x, y) => {
+  const adiacent = _getAdiacentCells(plane, x, y, true)
+
+  // autocecked se tra gli adiacenti ci sono tante bandierine quante sono indicate nel neighborCount
+  console.log(adiacent.filter(c => c.isFlagged).length, plane[x][y].neighborCount)
+  if (adiacent.filter(c => c.isFlagged).length === plane[x][y].neighborCount) {
+    adiacent.forEach(c => {
+      if (!c.isChecked && !c.isFlagged) {
+        if (c.isMine) return action.setGameStatus('lost')
+
+        plane[c.x][c.y].isChecked = true
+
+      }
+    })
+  }
+
 }
