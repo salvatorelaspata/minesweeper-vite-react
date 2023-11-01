@@ -5,7 +5,7 @@ const Cell = ({ cell: { x, y }, onSelected, onSelectedChecked }) => {
   const { cell } = useStore();
   const _cell = cell(x, y);
   const className =
-    `cell${_cell.isMine ? ' mine' : ''}${_cell.isFlagged ? ' flagged' : ''}${!_cell.isChecked ? ' revealed' : ''}`;
+    `cell${_cell.isFlagged ? ' flagged' : ''}${!_cell.isChecked ? ' revealed' : ''}`;
   return (
     <div className={className}
       onClick={(e) => {
@@ -17,8 +17,10 @@ const Cell = ({ cell: { x, y }, onSelected, onSelectedChecked }) => {
         e.preventDefault();
         if (!_cell.isChecked) action.setFlagged(x, y);
       }}>
-      {_cell.isChecked && <span>{`${_cell.neighborCount ?? ''}`}</span>}
-      <span>{_cell.isFlagged && '🚩'}</span>
+      {_cell.isChecked && _cell.neighborCount && <span data-neighborCount={_cell.neighborCount}>{`${_cell.neighborCount ?? ''}`}</span>}
+      {_cell.isFlagged && <span>🚩</span>}
+      {_cell.isMine && _cell.isChecked && <span className='mine'></span>}
+      {/* ${_cell.isMine ? ' mine' : ''} */}
     </div >
   );
 };

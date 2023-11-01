@@ -5,16 +5,54 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  font-size: 22px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.cell span {
+  user-select: none;
+}
+
+.cell span[data-neighborCount="1"] {
+  color: blue;
+}
+
+.cell span[data-neighborCount="2"] {
+  color: green;
+}
+
+.cell span[data-neighborCount="3"] {
+  color: red;
+}
+
+.cell span[data-neighborCount="4"] {
+  color: darkblue;
+}
+
+.cell span[data-neighborCount="5"] {
+  color: brown;
+}
+
+.cell span[data-neighborCount="6"] {
+  color: aqua;
+}
+
+.cell span[data-neighborCount="7"] {
+  color: black;
+}
+
+.cell span[data-neighborCount="8"] {
+  color: gray;
 }
 
 .cell.flagged {
   background-color: #ccc;
 }
 
-.cell.mine {
+.cell span.mine {
+  width: 100%;
+  height: 100%;
   background-color: #f00;
   color: #fff;
 }

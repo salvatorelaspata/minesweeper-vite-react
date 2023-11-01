@@ -13,7 +13,7 @@ function Settings () {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormValues({ ...formValues, difficulty: 'custom', [name]: parseInt(value) });
+    setFormValues({ ...formValues, difficulty: 'custom', [name]: parseInt(value || 0) });
   };
 
   const handleInputChangeSelect = (event) => {
