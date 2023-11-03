@@ -64,8 +64,8 @@
 
 /* Legend */
 .legend {
-  width: 100%;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .legend table {
@@ -77,9 +77,12 @@
   text-align: left;
 }
 
-.legend table tbody tr td {
+.legend table tbody tr td,
+.legend table thead tr th {
   padding-top: 5px;
   padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 /* capitalize first column */

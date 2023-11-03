@@ -35,10 +35,11 @@ const Game = () => {
                 action.revealChecked(rowIndex, colIndex)
               }}
               onSelected={() => {
-                const isNOTLost = game.status !== 'lost'
-                if (cell.isMine) action.setGameStatus('lost')
+                const isNOTLost = game.status !== GAME_STATUS.LOST
+                if (cell.isMine) action.setGameStatus(GAME_STATUS.LOST)
                 else if (!cell.isChecked && isNOTLost) action.revealCell(rowIndex, colIndex)
                 else console.log('cell is already checked')
+                isNOTLost && action.setGameStatus(GAME_STATUS.STARTED)
                 isNOTLost && action.setChecked(rowIndex, colIndex)
               }} />
           )
@@ -47,11 +48,15 @@ const Game = () => {
     });
   }
 
+  const _statusIcon = game.status === GAME_STATUS.WON ? '😎'
+    : game.status === GAME_STATUS.LOST ? '😒'
+      : game.status === GAME_STATUS.NOT_STARTED ? '🥱'
+        : '🙂'
   return (
     <>
       <div className="minesweeper-header">
         <div className="config.numMines">{config.numMines}</div>
-        <div className={`status ${game.status}`}>{game.status}</div>
+        <div className={`status ${game.status}`}>{_statusIcon}</div>
         <button onClick={() => { action.setGameStatus('started'); _generate() }}>New Game</button>
       </div>
       <div className="minesweeper">

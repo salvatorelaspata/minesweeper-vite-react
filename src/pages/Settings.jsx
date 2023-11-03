@@ -36,6 +36,7 @@ function Settings () {
   return (
     <div className='settings-container'>
       <form className="settings-form" onSubmit={handleSubmit}>
+        <h1>Game Settings</h1>
         <div className='settings-input-container'>
           <label className='settings-label'>Difficulty level:</label>
           <select className="settings-input" name="difficulty" value={formValues.difficulty} onChange={handleInputChangeSelect}>
@@ -46,9 +47,9 @@ function Settings () {
           </select>
         </div>
         <div className='settings-input-container'>
-          <label><span className='settings-label'>Board size </span>(Columns):</label>
+          <label><span className='settings-label'>Board size </span>Columns:</label>
           <input className="settings-input" type="text" name="boardCol" value={formValues.boardCol} onChange={handleInputChange} />
-          <label><span className='settings-label'>Board size </span>(Rows):</label>
+          <label><span className='settings-label'>Board size </span>Rows:</label>
           <input className="settings-input" type="text" name="boardRow" value={formValues.boardRow} onChange={handleInputChange} />
         </div>
         <div className='settings-input-container'>

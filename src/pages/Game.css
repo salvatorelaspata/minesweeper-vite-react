@@ -27,20 +27,8 @@
   align-items: center;
 }
 
-.minesweeper-header .status .playng,
-.minesweeper-header .status .lose,
-.minesweeper-header .status .win {
-  font-size: 20px;
-  font-weight: bold;
-  margin-left: 10px;
-}
-
-.minesweeper-header .status .lose {
-  color: #f00;
-}
-
-.minesweeper-header .status .win {
-  color: #0f0;
+.minesweeper-header .status {
+  font-size: xx-large;
 }
 
 .minesweeper .board {
