@@ -17,7 +17,7 @@ const Cell = ({ cell: { x, y }, onSelected, onSelectedChecked }) => {
         e.preventDefault();
         if (!_cell.isChecked) action.setFlagged(x, y);
       }}>
-      {_cell.isChecked && _cell.neighborCount && <span data-neighborCount={_cell.neighborCount}>{`${_cell.neighborCount ?? ''}`}</span>}
+      {_cell.isChecked && _cell.neighborCount && <span data-neighborcount={_cell.neighborCount}>{`${_cell.neighborCount ?? ''}`}</span>}
       {_cell.isFlagged && <span>🚩</span>}
       {_cell.isMine && _cell.isChecked && <span className='mine'></span>}
       {/* ${_cell.isMine ? ' mine' : ''} */}

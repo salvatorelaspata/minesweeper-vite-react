@@ -32,7 +32,13 @@ TODO
 
 [X] Feature - Autoclick controllando se la è presente un flag (🚩)
 
-[ ] BugFix - Remove class mine
+[X] BugFix - Remove class mine
+
+[X] Feature - Dark Mode
+
+[ ] Game - Insert Timer
+
+[ ] 
 
 [ ] Feature - Manage multicolor
 

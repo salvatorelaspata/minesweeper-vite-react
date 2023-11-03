@@ -29,7 +29,7 @@ export const action = {
     revealChecked(store.game.plane, row, col)
   },
   setGameStatus (status) {
-    if (status === 'lost' || status === 'won') {
+    if (status === GAME_STATUS.LOST || status === GAME_STATUS.WON) {
       store.game.plane.forEach(row => {
         row.forEach(cell => {
           cell.isChecked = true
@@ -54,9 +54,9 @@ export const action = {
         if (!cell.isChecked) count++
       })
     })
-    console.log(count, store.config.numMines)
+
     if (count === store.config.numMines) {
-      action.setGameStatus('won')
+      action.setGameStatus(GAME_STATUS.WON)
     }
   }
 }

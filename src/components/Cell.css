@@ -14,40 +14,36 @@
   user-select: none;
 }
 
-.cell span[data-neighborCount="1"] {
+.cell span[data-neighborcount="1"] {
   color: blue;
 }
 
-.cell span[data-neighborCount="2"] {
+.cell span[data-neighborcount="2"] {
   color: green;
 }
 
-.cell span[data-neighborCount="3"] {
+.cell span[data-neighborcount="3"] {
   color: red;
 }
 
-.cell span[data-neighborCount="4"] {
+.cell span[data-neighborcount="4"] {
   color: darkblue;
 }
 
-.cell span[data-neighborCount="5"] {
+.cell span[data-neighborcount="5"] {
   color: brown;
 }
 
-.cell span[data-neighborCount="6"] {
-  color: aqua;
+.cell span[data-neighborcount="6"] {
+  color: darkcyan;
 }
 
-.cell span[data-neighborCount="7"] {
+.cell span[data-neighborcount="7"] {
   color: black;
 }
 
-.cell span[data-neighborCount="8"] {
+.cell span[data-neighborcount="8"] {
   color: gray;
-}
-
-.cell.flagged {
-  background-color: #ccc;
 }
 
 .cell span.mine {
@@ -64,4 +60,15 @@
 
 .cell.revealed:hover {
   background-color: #ddd;
+}
+
+.cell.flagged {
+  background-color: #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+  .cell.revealed {
+    background-color: #333;
+    border-color: white;
+  }
 }

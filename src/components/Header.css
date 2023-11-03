@@ -36,3 +36,24 @@ nav ul li a {
 nav ul li a:hover {
   background-color: #eee;
 }
+
+/* dark theme */
+@media (prefers-color-scheme: dark) {
+  nav {
+    background-color: #333;
+    border-bottom: 1px solid #555;
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  nav ul li.active {
+    background-color: #555;
+  }
+
+  nav ul li a {
+    color: #fff;
+  }
+
+  nav ul li a:hover {
+    background-color: #444;
+  }
+}

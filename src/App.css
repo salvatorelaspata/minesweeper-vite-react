@@ -3,6 +3,14 @@
   src: local('Segment'), url(SevenSegment.woff) format('woff');
 }
 
-#root {
+body {
   font-family: 'Segment';
+  background-color: white;
+}
+
+/* implement dark theme */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: darkgray;
+  }
 }

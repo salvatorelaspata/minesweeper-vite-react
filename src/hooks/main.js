@@ -1,4 +1,5 @@
 import { action } from '../store'
+import { GAME_STATUS } from '../utils/constants'
 
 // function to generate a plane of minesweeper and return it as a 2D array
 export const generatePlane = (row, column) => {
@@ -102,11 +103,11 @@ export const revealChecked = (plane, x, y) => {
   const adiacent = _getAdiacentCells(plane, x, y, true)
 
   // autocecked se tra gli adiacenti ci sono tante bandierine quante sono indicate nel neighborCount
-  console.log(adiacent.filter(c => c.isFlagged).length, plane[x][y].neighborCount)
+  // console.log(adiacent.filter(c => c.isFlagged).length, plane[x][y].neighborCount)
   if (adiacent.filter(c => c.isFlagged).length === plane[x][y].neighborCount) {
     adiacent.forEach(c => {
       if (!c.isChecked && !c.isFlagged) {
-        if (c.isMine) return action.setGameStatus('lost')
+        if (c.isMine) return action.setGameStatus(GAME_STATUS.LOST)
 
         plane[c.x][c.y].isChecked = true
 
