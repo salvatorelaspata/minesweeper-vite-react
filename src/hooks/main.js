@@ -58,7 +58,7 @@ const _getNeighborCount = (plane, x, y) => {
   }
 }
 
-const _getAdiacentCells = (plane, x, y, includeMine = false) => {
+const _getAdiacentCells = ({ plane, x, y, includeMine = false }) => {
   const _y = plane[0].length
   const _x = plane.length
 
@@ -80,7 +80,7 @@ export const revealCell = (plane, x, y, i = 0) => {
   // 1. se la cella che si sta analizzando contiene un numero non fare nulla
   if (plane[x][y].neighborCount) return
   // 2. se la cella non contiene un numero è papabile per la ricorsione quindi recupero le celle adiacenti
-  const adiacentCells = _getAdiacentCells(plane, x, y)
+  const adiacentCells = _getAdiacentCells({ plane, x, y })
   // 3. se non ci sono mine tra le celle adiacenti (every --> se tutte non sono mine)
   if (adiacentCells.every((c) => !c.isMine))
     // 4. per ogni cella adiacente
@@ -100,7 +100,7 @@ export const revealCell = (plane, x, y, i = 0) => {
 }
 
 export const revealChecked = (plane, x, y) => {
-  const adiacent = _getAdiacentCells(plane, x, y, true)
+  const adiacent = _getAdiacentCells({ plane, x, y, includeMine: true })
 
   // autocecked se tra gli adiacenti ci sono tante bandierine quante sono indicate nel neighborCount
   // console.log(adiacent.filter(c => c.isFlagged).length, plane[x][y].neighborCount)
@@ -108,7 +108,8 @@ export const revealChecked = (plane, x, y) => {
     adiacent.forEach(c => {
       if (!c.isChecked && !c.isFlagged) {
         if (c.isMine) return action.setGameStatus(GAME_STATUS.LOST)
-
+        // se tra le celle automaticamente checcate è presente una cella bianca allora "rivelo" le celle ricorsivamente
+        if (!c.neighborCount) revealCell(plane, c.x, c.y)
         plane[c.x][c.y].isChecked = true
 
       }

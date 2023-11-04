@@ -2,17 +2,17 @@ export const STANDARD_CONFIG = {
   easy: {
     boardCol: 10,
     boardRow: 10,
-    numMines: 5
+    numMines: 20
   },
   medium: {
     boardCol: 20,
     boardRow: 20,
-    numMines: 20
+    numMines: 80
   },
   hard: {
     boardCol: 30,
     boardRow: 30,
-    numMines: 50
+    numMines: 99
   }
 }
 export const DEFAULT_DIFFICULTY = 'medium'
