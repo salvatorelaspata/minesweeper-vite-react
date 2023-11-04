@@ -27,29 +27,21 @@
 
 .minesweeper-header .status {
   font-size: xx-large;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  color: #fff;
+  outline: inherit;
 }
 
-
-.minesweeper-header .new,
 .minesweeper-header .numMines {
-  cursor: pointer;
   border: 1px solid #ccc;
   padding: 10px;
+  background-color: black;
+  color: red;
   border-radius: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  background-color: #007bff;
-  color: #fff;
-}
-
-.minesweeper-header .numMines {
-  background-color: black;
-  color: red
-}
-
-.minesweeper-header .new:hover {
-  background-color: #ccc;
 }
 
 .minesweeper .board {

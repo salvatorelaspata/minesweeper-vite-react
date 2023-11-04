@@ -10,9 +10,6 @@ function SubHeader () {
       case '/':
         _title = 'Game';
         break;
-      // case '/game':
-      //   _title = 'Game';
-      //   break;
       case '/settings':
         _title = 'Settings';
         break;

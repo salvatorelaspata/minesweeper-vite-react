@@ -11,7 +11,7 @@ export const store = proxy({
   },
   game: {
     plane: [],
-    status: GAME_STATUS.NOT_STARTED
+    config: { status: GAME_STATUS.NOT_STARTED }
   }
 })
 
@@ -36,7 +36,7 @@ export const action = {
         })
       })
     }
-    store.game.status = status
+    store.game.config.status = status
   },
   setConfig (config) {
     store.config = config
@@ -67,5 +67,6 @@ export function useStore () {
     config: snap.config,
     game: snap.game,
     cell: (row, col) => snap.game.plane[row][col],
+    store
   }
 }

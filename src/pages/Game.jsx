@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cell from '../components/Cell';
 import { useStore, action } from '../store';
 
 import './Game.css'
 import { GAME_STATUS } from '../utils/constants';
+import { subscribe } from 'valtio';
+import Timer from '../components/Timer';
 
 
 const Game = () => {
-  const { config, game } = useStore();
+  const [timer, setTimer] = useState(0)
+  const { config, game, store } = useStore();
 
   const _generate = () => {
     action.generatePlane()
@@ -15,10 +18,16 @@ const Game = () => {
   }
 
   useEffect(() => {
-    game.status === GAME_STATUS.NOT_STARTED && _generate()
-  }, [])
+    game.config.status === GAME_STATUS.NOT_STARTED && _generate()
 
-  action.checkWin()
+    const unsubscribePlane = subscribe(store.game.plane, () => {
+      action.checkWin()
+    })
+
+    return () => {
+      unsubscribePlane();
+    }
+  }, [])
 
   const renderBoard = () => {
     if (!game.plane.length) return null
@@ -34,7 +43,7 @@ const Game = () => {
                 action.revealChecked(rowIndex, colIndex)
               }}
               onSelected={() => {
-                const isNOTLost = game.status !== GAME_STATUS.LOST
+                const isNOTLost = game.config.status !== GAME_STATUS.LOST
                 if (cell.isMine) return action.setGameStatus(GAME_STATUS.LOST)
                 else if (!cell.isChecked && isNOTLost) action.revealCell(rowIndex, colIndex)
                 else console.log('cell is already checked')
@@ -50,16 +59,20 @@ const Game = () => {
   }
 
   const _statusIcon =
-    game.status === GAME_STATUS.WON ? '😎'
-      : game.status === GAME_STATUS.LOST ? '😒'
-        : game.status === GAME_STATUS.NOT_STARTED ? '🥱'
+    game.config.status === GAME_STATUS.WON ? '😎'
+      : game.config.status === GAME_STATUS.LOST ? '😒'
+        : game.config.status === GAME_STATUS.NOT_STARTED ? '🥱'
           : '🙂'
   return (
     <>
       <div className="minesweeper-header">
-        <div className="config numMines">{config.numMines}</div>
-        <div className={`status ${game.status}`}>{_statusIcon}</div>
-        <div className="new" onClick={() => { action.setGameStatus('started'); _generate() }}>New Game</div>
+        <div className="numMines">{config.numMines}</div>
+        <button className="status" onClick={() => { action.setGameStatus(GAME_STATUS.NOT_STARTED); _generate() }}>
+          {_statusIcon}
+        </button>
+        <Timer />
+
+        {/* <div className="new" onClick={() => { action.setGameStatus('started'); _generate() }}>New Game</div> */}
       </div>
       <div className="minesweeper">
         <div className="board">{renderBoard()}</div>
