@@ -10,7 +10,7 @@ function Timer () {
   useEffect(() => {
     let intervalId;
     const unsubscribeStatus = subscribe(store.game.config, () => {
-      console.log('game status changed', store.game.config.status)
+      // console.log('game status changed', store.game.config.status)
       if (store.game.config.status === GAME_STATUS.STARTED) {
         setSeconds(0);
         intervalId = setInterval(() => {
