@@ -103,13 +103,16 @@ export const revealCell = (plane, x, y, i = 0) => {
 export const revealChecked = (plane, x, y) => {
   const adiacent = _getAdiacentCells({ plane, x, y, includeMine: true })
 
-  // autocecked se tra gli adiacenti ci sono tante bandierine quante sono indicate nel neighborCount
-  // console.log(adiacent.filter(c => c.isFlagged).length, plane[x][y].neighborCount)
+  // se tra gli adiacenti ci sono tante bandierine quante sono indicate nel neighborCount
   if (adiacent.filter(c => c.isFlagged).length === plane[x][y].neighborCount) {
+    // verifico le celle adiacente
     adiacent.forEach(c => {
+      // se la cella non è già stata cliccata o ha una bandiera
       if (!c.isChecked && !c.isFlagged) {
+        // se è una mina imposto lo stato LOST
         if (c.isMine) return action.setGameStatus(GAME_STATUS.LOST)
-        // se tra le celle automaticamente checcate è presente una cella bianca allora "rivelo" le celle ricorsivamente
+        // se tra le celle è presente una cella bianca (senza numero) 
+        // allora rivelo le celle
         if (!c.neighborCount) revealCell(plane, c.x, c.y)
         plane[c.x][c.y].isChecked = true
 

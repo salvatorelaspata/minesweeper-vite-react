@@ -35,15 +35,12 @@ export const useGame = () => {
         {row.map((cell, colIndex) => {
           return (
             <Cell key={`${rowIndex}-${colIndex}`}
-              y={rowIndex}
-              x={colIndex}
               cell={cell}
-              onSelectedChecked={() => {
-                action.revealChecked(rowIndex, colIndex)
-              }}
-              onSelected={() => {
-                const isNOTLost = game.config.status !== GAME_STATUS.LOST
+              onSelected={useCallback(() => {
+                // LOST
                 if (cell.isMine) return action.setGameStatus(GAME_STATUS.LOST)
+
+                const isNOTLost = game.config.status !== GAME_STATUS.LOST
 
                 if (!cell.isChecked && isNOTLost) action.revealCell(rowIndex, colIndex)
                 else console.log('[useGame.jsx] cell is already checked')
@@ -52,7 +49,7 @@ export const useGame = () => {
                   action.setGameStatus(GAME_STATUS.STARTED)
                   action.setChecked(rowIndex, colIndex)
                 }
-              }} />
+              })} />
           )
         })}
       </div>

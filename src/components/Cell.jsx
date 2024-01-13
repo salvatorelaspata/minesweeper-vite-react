@@ -1,7 +1,16 @@
-import './Cell.css'
 import { action, useStore } from '../store';
 
-const Cell = ({ cell: { x, y }, onSelected, onSelectedChecked }) => {
+import './Cell.css'
+
+const NeighborCount = ({ neighborCount }) => (
+  <span data-neighborcount={neighborCount}>
+    {`${neighborCount ?? ''}`}
+  </span>
+)
+const Flag = () => <span>🚩</span>
+const Mine = () => <span className='mine'></span>
+
+const Cell = ({ cell: { x, y }, onSelected }) => {
   const { cell } = useStore();
   const _cell = cell(x, y);
   const className =
@@ -11,16 +20,17 @@ const Cell = ({ cell: { x, y }, onSelected, onSelectedChecked }) => {
       onClick={(e) => {
         e.preventDefault();
         if (!_cell.isFlagged && !_cell.isChecked) onSelected()
-        else if (_cell.neighborCount) onSelectedChecked()
+        else if (_cell.neighborCount) action.revealChecked(x, y)()
+        return
       }}
       onContextMenu={(e) => {
         e.preventDefault();
         if (!_cell.isChecked) action.setFlagged(x, y);
+        return
       }}>
-      {_cell.isChecked && _cell.neighborCount && <span data-neighborcount={_cell.neighborCount}>{`${_cell.neighborCount ?? ''}`}</span>}
-      {_cell.isFlagged && <span>🚩</span>}
-      {_cell.isMine && _cell.isChecked && <span className='mine'></span>}
-      {/* ${_cell.isMine ? ' mine' : ''} */}
+      {_cell.isChecked && _cell.neighborCount && <NeighborCount neighborCount={_cell.neighborCount} />}
+      {_cell.isFlagged && <Flag />}
+      {_cell.isChecked && _cell.isMine && <Mine />}
     </div >
   );
 };
