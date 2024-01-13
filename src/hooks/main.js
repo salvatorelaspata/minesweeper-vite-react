@@ -24,7 +24,7 @@ export const generatePlane = (row, column) => {
 
 // function to popolate the plane with mines
 // Implement perlin noise to generate a more natural distribution of mines
-export const populatePlane = (plane, minesCount) => {
+export const popolatePlane = (plane, minesCount) => {
   let count = 0
   const _y = plane[0].length
   const _x = plane.length
@@ -79,6 +79,7 @@ const _getAdiacentCells = ({ plane, x, y, includeMine = false }) => {
 export const revealCell = (plane, x, y, i = 0) => {
   // 1. se la cella che si sta analizzando contiene un numero non fare nulla
   if (plane[x][y].neighborCount) return
+  if (plane[x][y].isMine) return
   // 2. se la cella non contiene un numero è papabile per la ricorsione quindi recupero le celle adiacenti
   const adiacentCells = _getAdiacentCells({ plane, x, y })
   // 3. se non ci sono mine tra le celle adiacenti (every --> se tutte non sono mine)

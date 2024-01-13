@@ -1,35 +1,17 @@
-import { GAME_STATUS } from '../utils/constants';
-import Timer from '../components/Timer';
+import { Board } from '../components/game/Board';
+import { GameHeader } from '../components/game/GemeHeader';
 import { useGame } from '../hooks/useGame';
 
 import './Game.css'
 
 const Game = () => {
-  const { config, game, renderBoard, reset } = useGame();
+  const { config, game, reset, renderBoard } = useGame();
+  console.log('[Game.jsx]', game)
 
-  const _statusIcon =
-    game.config.status === GAME_STATUS.WON ? '😎'
-      : game.config.status === GAME_STATUS.LOST ? '😒'
-        : game.config.status === GAME_STATUS.NOT_STARTED ? '🥱'
-          : '🙂'
   return (
     <>
-      {/* HEADER */}
-      <div className="minesweeper-header">
-        <div className="numMines">
-          {config.numMines}
-        </div>
-
-        <button className="status" onClick={reset}>
-          {_statusIcon}
-        </button>
-
-        <Timer />
-      </div>
-      {/* BOARD */}
-      <div className="minesweeper">
-        <div className="board">{renderBoard()}</div>
-      </div>
+      <GameHeader config={config} game={game} reset={reset} />
+      <Board renderBoard={renderBoard} />
     </>
   );
 };

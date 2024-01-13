@@ -9,23 +9,24 @@ export const useGame = () => {
 
   const generate = useCallback(() => {
     action.generatePlane()
-    action.populatePlane()
+    action.popolatePlane()
   }, [])
 
+  // check win
   useEffect(() => {
-    console.log('useEffect')
+    console.log('[useGame.jsx] useEffect')
     game.config.status === GAME_STATUS.NOT_STARTED && generate()
 
     const unsubscribePlane = subscribe(store.game.plane, () => {
-      console.log('plane changed')
+      console.log('[useGame.jsx] plane changed')
       action.checkWin()
     })
 
     return () => {
-      console.log('unsubscribe')
+      console.log('[useGame.jsx] unsubscribe')
       unsubscribePlane();
     }
-  }, [store.game.plane])
+  }, [])
 
   const renderBoard = () => {
     if (!game.plane.length) return null
@@ -43,8 +44,10 @@ export const useGame = () => {
               onSelected={() => {
                 const isNOTLost = game.config.status !== GAME_STATUS.LOST
                 if (cell.isMine) return action.setGameStatus(GAME_STATUS.LOST)
-                else if (!cell.isChecked && isNOTLost) action.revealCell(rowIndex, colIndex)
-                else console.log('cell is already checked')
+
+                if (!cell.isChecked && isNOTLost) action.revealCell(rowIndex, colIndex)
+                else console.log('[useGame.jsx] cell is already checked')
+
                 if (isNOTLost) {
                   action.setGameStatus(GAME_STATUS.STARTED)
                   action.setChecked(rowIndex, colIndex)

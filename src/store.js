@@ -1,6 +1,8 @@
 import { proxy, useSnapshot } from 'valtio'
-import { generatePlane, populatePlane, revealCell, revealChecked } from './hooks/main'
+import { generatePlane as _generatePlane, popolatePlane as _popolatePlane, revealCell as _revealCell, revealChecked as _revealChecked } from './hooks/main'
 import { DEFAULT_COLUMN, DEFAULT_DIFFICULTY, DEFAULT_MINES, DEFAULT_ROW, GAME_STATUS } from './utils/constants'
+
+import { devtools } from 'valtio/utils'
 
 export const store = proxy({
   config: {
@@ -15,18 +17,22 @@ export const store = proxy({
   }
 })
 
+devtools(store, { name: 'minesweeper', enabled: true })
+
 export const action = {
-  populatePlane () {
-    store.game.plane = populatePlane(store.game.plane, store.config.numMines)
+  popolatePlane () {
+    const _plane = [].concat(store.game.plane);
+    store.game.plane = _popolatePlane(_plane, store.config.numMines)
   },
   generatePlane () {
-    store.game.plane = generatePlane(store.config.boardCol, store.config.boardRow)
+    const { boardCol, boardRow } = Object.assign({}, store.config)
+    store.game.plane = _generatePlane(boardCol, boardRow)
   },
   revealCell (row, col) {
-    revealCell(store.game.plane, row, col)
+    _revealCell(store.game.plane, row, col)
   },
   revealChecked (row, col) {
-    revealChecked(store.game.plane, row, col)
+    _revealChecked(store.game.plane, row, col)
   },
   setGameStatus (status) {
     if (status === GAME_STATUS.LOST || status === GAME_STATUS.WON) {
