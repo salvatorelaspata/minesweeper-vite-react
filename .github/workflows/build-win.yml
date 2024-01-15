@@ -1,5 +1,4 @@
 # Create build command to package windows executable
-
 name: Build socket supply app for windows
 run-name: windows-build
 on:
@@ -29,8 +28,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build
-        run: |
-          ssc build
+        run: npm run build:win
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}/build
