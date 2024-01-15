@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import './Timer.css'
 import { subscribe } from 'valtio';
 import { useStore } from '../store';
 import { GAME_STATUS } from '../utils/constants';
-function Timer () {
+
+import './Timer.css'
+
+const Timer: React.FC = () => {
   const { store } = useStore();
   const [seconds, setSeconds] = useState(0);
 

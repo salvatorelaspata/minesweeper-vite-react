@@ -1,16 +1,24 @@
+import React from 'react';
 import { action, useStore } from '../store';
 
 import './Cell.css'
 
-const NeighborCount = ({ neighborCount }) => (
+type NeighborCountProps = {
+  neighborCount: number;
+}
+const NeighborCount: React.FC<NeighborCountProps> = ({ neighborCount }) => (
   <span data-neighborcount={neighborCount}>
     {`${neighborCount ?? ''}`}
   </span>
 )
-const Flag = () => <span>🚩</span>
-const Mine = () => <span className='mine'></span>
+const Flag: React.FC = () => <span>🚩</span>
+const Mine: React.FC = () => <span className='mine'></span>
 
-const Cell = ({ cell: { x, y }, onSelected }) => {
+type CellProps = {
+  cell: { x: number, y: number };
+  onSelected: () => void;
+}
+const Cell: React.FC<CellProps> = ({ cell: { x, y }, onSelected }) => {
   const { cell } = useStore();
   const _cell = cell(x, y);
   const className =
@@ -20,7 +28,7 @@ const Cell = ({ cell: { x, y }, onSelected }) => {
       onClick={(e) => {
         e.preventDefault();
         if (!_cell.isFlagged && !_cell.isChecked) onSelected()
-        else if (_cell.neighborCount) action.revealChecked(x, y)()
+        else if (_cell.neighborCount) action.revealChecked(x, y)
         return
       }}
       onContextMenu={(e) => {

@@ -1,12 +1,14 @@
+import React from 'react';
 import { Route, Routes } from "react-router-dom";
-import './App.css'
 // pages
 import ErrorPage from './pages/ErrorPage';
 import Layout from './components/Layout';
 import Game from './pages/Game';
 import Settings from './pages/Settings';
 
-function App () {
+import './App.css'
+
+const App: React.FC = () => {
   return (
     <>
       <Routes>

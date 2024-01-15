@@ -4,7 +4,36 @@ import { DEFAULT_COLUMN, DEFAULT_DIFFICULTY, DEFAULT_MINES, DEFAULT_ROW, GAME_ST
 
 import { devtools } from 'valtio/utils'
 
-export const store = proxy({
+export interface Cell {
+  x: number,
+  y: number,
+  isChecked: boolean,
+  isMine: boolean,
+  isFlagged: boolean,
+  isRevealed: boolean,
+  neighborCount: null | number,
+}
+
+export type Plane = Cell[][]
+export type Config = {
+  difficulty: string
+  boardCol: number
+  boardRow: number
+  numMines: number
+}
+export type Game = {
+  plane: Plane
+  config: {
+    status: string
+  }
+}
+
+interface Store {
+  config: Config
+  game: Game
+}
+
+export const store = proxy<Store>({
   config: {
     difficulty: DEFAULT_DIFFICULTY,
     boardCol: DEFAULT_COLUMN,
@@ -28,13 +57,13 @@ export const action = {
     const { boardCol, boardRow } = Object.assign({}, store.config)
     store.game.plane = _generatePlane(boardCol, boardRow)
   },
-  revealCell (row, col) {
+  revealCell (row: number, col: number) {
     _revealCell(store.game.plane, row, col)
   },
-  revealChecked (row, col) {
+  revealChecked (row: number, col: number) {
     _revealChecked(store.game.plane, row, col)
   },
-  setGameStatus (status) {
+  setGameStatus (status: string) {
     if (status === GAME_STATUS.LOST || status === GAME_STATUS.WON) {
       store.game.plane.forEach(row => {
         row.forEach(cell => {
@@ -44,13 +73,13 @@ export const action = {
     }
     store.game.config.status = status
   },
-  setConfig (config) {
+  setConfig (config: Store['config']) {
     store.config = config
   },
-  setChecked (row, col) {
+  setChecked (row: number, col: number) {
     store.game.plane[row][col].isChecked = true
   },
-  setFlagged (row, col) {
+  setFlagged (row: number, col: number) {
     store.game.plane[row][col].isFlagged = !store.game.plane[row][col].isFlagged
   },
   checkWin () {
@@ -70,9 +99,9 @@ export const action = {
 export function useStore () {
   const snap = useSnapshot(store)
   return {
-    config: snap.config,
-    game: snap.game,
-    cell: (row, col) => snap.game.plane[row][col],
+    config: snap.config as Config,
+    game: snap.game as Game,
+    cell: (row: number, col: number) => snap.game.plane[row][col] as Cell,
     store
   }
 }

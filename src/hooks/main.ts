@@ -1,9 +1,10 @@
-import { action } from '../store'
+import { Cell, Plane, action } from '../store'
 import { GAME_STATUS } from '../utils/constants'
 
 // function to generate a plane of minesweeper and return it as a 2D array
-export const generatePlane = (row, column) => {
-  const plane = []
+type GeneratePlane = (row: number, column: number) => Plane
+export const generatePlane: GeneratePlane = (row, column) => {
+  const plane: Plane = []
   for (let i = 0; i < column; i++) {
     const _row = []
     for (let j = 0; j < row; j++) {
@@ -24,7 +25,8 @@ export const generatePlane = (row, column) => {
 
 // function to popolate the plane with mines
 // Implement perlin noise to generate a more natural distribution of mines
-export const popolatePlane = (plane, minesCount) => {
+type PopolatePlane = (plane: Plane, minesCount: number) => Plane
+export const popolatePlane: PopolatePlane = (plane, minesCount) => {
   let count = 0
   const _y = plane[0].length
   const _x = plane.length
@@ -45,7 +47,8 @@ export const popolatePlane = (plane, minesCount) => {
 }
 
 // function to get neighbor count of the adiacent cells
-const _getNeighborCount = (plane, x, y) => {
+type GetNeighborCount = (plane: Plane, x: number, y: number) => void
+const _getNeighborCount: GetNeighborCount = (plane, x, y) => {
   const _y = plane[0].length
   const _x = plane.length
   for (let i = x - 1; i <= x + 1; i++) {
@@ -58,11 +61,19 @@ const _getNeighborCount = (plane, x, y) => {
   }
 }
 
-const _getAdiacentCells = ({ plane, x, y, includeMine = false }) => {
+// function to reveal the cell and all the adiacent cells
+interface IRevealCell {
+  plane: Plane,
+  x: number,
+  y: number,
+  includeMine?: boolean
+}
+type AdiacentCells = (IAdiacentCells) => Cell[]
+const _getAdiacentCells: AdiacentCells = ({ plane, x, y, includeMine = false }) => {
   const _y = plane[0].length
   const _x = plane.length
 
-  const adiacentCells = []
+  const adiacentCells: Cell[] = []
   for (let i = x - 1; i <= x + 1; i++) {
     if (i < 0 || i >= _x) continue // skip if out of bound
     for (let j = y - 1; j <= y + 1; j++) {
@@ -76,7 +87,8 @@ const _getAdiacentCells = ({ plane, x, y, includeMine = false }) => {
 }
 
 // function to reveal the cell and all the adiacent cells
-export const revealCell = (plane, x, y, i = 0) => {
+type RevealCell = (plane: Plane, x: number, y: number, i?: number) => void
+export const revealCell: RevealCell = (plane, x, y, i = 0) => {
   // 1. se la cella che si sta analizzando contiene un numero non fare nulla
   if (plane[x][y].neighborCount) return
   if (plane[x][y].isMine) return
@@ -100,7 +112,8 @@ export const revealCell = (plane, x, y, i = 0) => {
     })
 }
 
-export const revealChecked = (plane, x, y) => {
+type RevealChecked = (plane: Plane, x: number, y: number) => void
+export const revealChecked: RevealChecked = (plane, x, y) => {
   const adiacent = _getAdiacentCells({ plane, x, y, includeMine: true })
 
   // se tra gli adiacenti ci sono tante bandierine quante sono indicate nel neighborCount

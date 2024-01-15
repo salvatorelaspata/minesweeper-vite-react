@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { GAME_STATUS } from '../utils/constants';
 import { subscribe } from 'valtio';
 import { useStore, action } from '../store';
@@ -14,16 +14,16 @@ export const useGame = () => {
 
   // check win
   useEffect(() => {
-    console.log('[useGame.jsx] useEffect')
+    console.log('[useGame.tsx] useEffect')
     game.config.status === GAME_STATUS.NOT_STARTED && generate()
 
     const unsubscribePlane = subscribe(store.game.plane, () => {
-      console.log('[useGame.jsx] plane changed')
+      console.log('[useGame.tsx] plane changed')
       action.checkWin()
     })
 
     return () => {
-      console.log('[useGame.jsx] unsubscribe')
+      console.log('[useGame.tsx] unsubscribe')
       unsubscribePlane();
     }
   }, [])
@@ -43,7 +43,7 @@ export const useGame = () => {
                 const isNOTLost = game.config.status !== GAME_STATUS.LOST
 
                 if (!cell.isChecked && isNOTLost) action.revealCell(rowIndex, colIndex)
-                else console.log('[useGame.jsx] cell is already checked')
+                else console.log('[useGame.tsx] cell is already checked')
 
                 if (isNOTLost) {
                   action.setGameStatus(GAME_STATUS.STARTED)
