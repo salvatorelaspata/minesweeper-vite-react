@@ -1,7 +1,7 @@
 # Create build command to package windows executable
 
 name: Build socket supply app for windows
-run-name: ${{ github.actor }} is running out GitHub Action
+run-name: windows-build
 on:
   push:
     branches:
@@ -25,4 +25,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: socket-minesweeper-app-windows
-          path: .
+          path: build
