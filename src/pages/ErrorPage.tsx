@@ -1,4 +1,6 @@
-function ErrorPage () {
+import React from 'react';
+
+const ErrorPage: React.FC = () => {
   return (
     <div id="error-page">
       <h1>Oops!</h1>

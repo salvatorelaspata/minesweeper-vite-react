@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
-import './Settings.css'
-import { action, useStore } from '../store';
+import { Config, action, useStore } from '../store';
 import { STANDARD_CONFIG } from '../utils/constants';
-function Settings () {
+
+import './Settings.css'
+
+const Settings: React.FC = () => {
   const { config } = useStore();
-  const [formValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState<Config>({
     difficulty: config.difficulty,
     boardCol: config.boardCol,
     boardRow: config.boardRow,
     numMines: config.numMines,
   });
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, difficulty: 'custom', [name]: parseInt(value || 0) });
   };
 
-  const handleInputChangeSelect = (event) => {
+  const handleInputChangeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     if (value === 'custom') return setFormValues({ ...formValues, difficulty: value });
     setFormValues({
@@ -28,7 +30,7 @@ function Settings () {
     });
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     action.setConfig(formValues)
   };

@@ -1,8 +1,9 @@
+import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import SubHeader from './SubHeader';
 
-function Layout () {
+const Layout: React.FC = () => {
   // get route path
   const { pathname } = useLocation();
   return (
