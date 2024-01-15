@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build
-        run: npm run build:linux
+        run: npm run build:ubuntu
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}/build
