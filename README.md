@@ -28,17 +28,7 @@ npm start
 
 TODO
 
-[X] BugFix - Responsive design
-
-[X] Feature - Autoclick controllando se la è presente un flag (🚩)
-
-[X] BugFix - Remove class mine
-
-[X] Feature - Dark Mode
-
-[ ] Game - Insert Timer
-
-[ ] 
+[ ] Feature - Build Desktop & Mobile App with SocketSupply
 
 [ ] Feature - Manage multicolor
 
