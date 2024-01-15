@@ -1,0 +1,33 @@
+# Create build command to package windows executable
+
+name: Build socket supply app for windows
+run-name: ${{ github.actor }} is running out GitHub Action
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up ssc cli
+        run: |
+          npm i @socketsupply/socket -g
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: |
+          ssc build
+      - name: Archive production artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: socket-minesweeper-app
+          path: dist
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: socket-minesweeper-app
+          path: dist
