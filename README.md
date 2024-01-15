@@ -28,6 +28,8 @@ npm start
 
 TODO
 
+[ ] BugFix - Fix bug onContextMenu in IOS app
+
 [ ] Feature - Build Desktop & Mobile App with SocketSupply
 
 [ ] Feature - Manage multicolor

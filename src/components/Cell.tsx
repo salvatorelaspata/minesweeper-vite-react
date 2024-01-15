@@ -1,7 +1,8 @@
 import React from 'react';
-import { action, useStore } from '../store';
+import { Cells, action, useStore } from '../store';
 
 import './Cell.css'
+import { GAME_STATUS } from '../utils/constants';
 
 type NeighborCountProps = {
   neighborCount: number;
@@ -15,11 +16,12 @@ const Flag: React.FC = () => <span>🚩</span>
 const Mine: React.FC = () => <span className='mine'></span>
 
 type CellProps = {
-  cell: { x: number, y: number };
-  onSelected: () => void;
+  x: number;
+  y: number;
 }
-const Cell: React.FC<CellProps> = ({ cell: { x, y }, onSelected }) => {
-  const { cell } = useStore();
+
+const Cell: React.FC<CellProps> = ({ x, y }) => {
+  const { cell, game } = useStore();
   const _cell = cell(x, y);
   const className =
     `cell${_cell.isFlagged ? ' flagged' : ''}${!_cell.isChecked ? ' revealed' : ''}`;
@@ -27,8 +29,23 @@ const Cell: React.FC<CellProps> = ({ cell: { x, y }, onSelected }) => {
     <div className={className}
       onClick={(e) => {
         e.preventDefault();
-        if (!_cell.isFlagged && !_cell.isChecked) onSelected()
-        else if (_cell.neighborCount) action.revealChecked(x, y)
+        console.log(`${!_cell.isFlagged && !_cell.isChecked} if true, then onSelected()`)
+        console.log(`${_cell.neighborCount} if true, then action.revealChecked(${x}, ${y})`)
+        if (!_cell.isFlagged && !_cell.isChecked) {
+          // LOST
+          if (_cell.isMine) return action.setGameStatus(GAME_STATUS.LOST)
+
+          const isNOTLost = game.config.status !== GAME_STATUS.LOST
+
+          if (!_cell.isChecked && isNOTLost) action.revealCell(x, y)
+          else console.log('[useGame.tsx] cell is already checked')
+
+          if (isNOTLost) {
+            action.setGameStatus(GAME_STATUS.STARTED)
+            action.setChecked(x, y)
+          }
+        }
+        else if (_cell.neighborCount) { action.revealChecked(x, y) }
         return
       }}
       onContextMenu={(e) => {

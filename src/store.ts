@@ -4,7 +4,7 @@ import { DEFAULT_COLUMN, DEFAULT_DIFFICULTY, DEFAULT_MINES, DEFAULT_ROW, GAME_ST
 
 import { devtools } from 'valtio/utils'
 
-export interface Cell {
+export interface Cells {
   x: number,
   y: number,
   isChecked: boolean,
@@ -14,7 +14,7 @@ export interface Cell {
   neighborCount: null | number,
 }
 
-export type Plane = Cell[][]
+export type Plane = Cells[][]
 export type Config = {
   difficulty: string
   boardCol: number
@@ -50,8 +50,7 @@ devtools(store, { name: 'minesweeper', enabled: true })
 
 export const action = {
   popolatePlane () {
-    const _plane = [].concat(store.game.plane);
-    store.game.plane = _popolatePlane(_plane, store.config.numMines)
+    store.game.plane = _popolatePlane(store.game.plane, store.config.numMines)
   },
   generatePlane () {
     const { boardCol, boardRow } = Object.assign({}, store.config)
@@ -101,7 +100,7 @@ export function useStore () {
   return {
     config: snap.config as Config,
     game: snap.game as Game,
-    cell: (row: number, col: number) => snap.game.plane[row][col] as Cell,
+    cell: (row: number, col: number) => snap.game.plane[row][col] as Cells,
     store
   }
 }

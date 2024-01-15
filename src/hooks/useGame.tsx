@@ -32,24 +32,9 @@ export const useGame = () => {
     if (!game.plane.length) return null
     return game.plane.map((row, rowIndex) => {
       return <div className="row" key={rowIndex}>
-        {row.map((cell, colIndex) => {
+        {row.map(({ x, y }, colIndex) => {
           return (
-            <Cell key={`${rowIndex}-${colIndex}`}
-              cell={cell}
-              onSelected={useCallback(() => {
-                // LOST
-                if (cell.isMine) return action.setGameStatus(GAME_STATUS.LOST)
-
-                const isNOTLost = game.config.status !== GAME_STATUS.LOST
-
-                if (!cell.isChecked && isNOTLost) action.revealCell(rowIndex, colIndex)
-                else console.log('[useGame.tsx] cell is already checked')
-
-                if (isNOTLost) {
-                  action.setGameStatus(GAME_STATUS.STARTED)
-                  action.setChecked(rowIndex, colIndex)
-                }
-              })} />
+            <Cell key={`${rowIndex}-${colIndex}`} x={x} y={y} />
           )
         })}
       </div>
