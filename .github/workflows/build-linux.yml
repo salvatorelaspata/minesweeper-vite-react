@@ -11,6 +11,8 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - name: Update apt-get
+        run: sudo apt-get update
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up ssc cli
@@ -20,9 +22,9 @@ jobs:
         run: npm ci
       - name: Build
         run: |
-          ssc build
+          npm run build
       - name: Archive production artifact
         uses: actions/upload-artifact@v2
         with:
-          name: socket-minesweeper-app
-          path: dist
+          name: socket-minesweeper-app-linux
+          path: .

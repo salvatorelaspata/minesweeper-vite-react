@@ -24,10 +24,5 @@ jobs:
       - name: Archive production artifact
         uses: actions/upload-artifact@v2
         with:
-          name: socket-minesweeper-app
-          path: dist
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: socket-minesweeper-app
-          path: dist
+          name: socket-minesweeper-app-windows
+          path: .
