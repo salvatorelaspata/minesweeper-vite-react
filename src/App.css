@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Segment';
-  src: local('Segment'), url(SevenSegment.woff) format('woff');
+  src: local('Segment'), url(./assets/SevenSegment.woff) format('woff');
 }
 
 body {
