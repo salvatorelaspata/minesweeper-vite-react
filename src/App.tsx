@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, matchRoutes, useResolvedPath } from "react-router-dom";
 // pages
 import ErrorPage from './pages/ErrorPage';
 import Layout from './components/Layout';
@@ -15,6 +15,7 @@ const App: React.FC = () => {
         <Route path="/" element={<Layout />}>
           {/* <Route index element={<Home />} /> */}
           <Route index element={<Game />} />
+          <Route path='/index.html' element={<Game />} />
           <Route path='settings' element={<Settings />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
