@@ -42,7 +42,7 @@ jobs:
         run: ls ${{ github.workspace }}/build
       - uses: actions/download-artifact@v3
         with:
-          name: Build
+          name: socket-minesweeper-app-windows
           path: build
       - run: zip -r socket-minesweeper-app-windows.zip build/
       - uses: ncipollo/release-action@v1
