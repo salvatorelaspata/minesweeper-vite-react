@@ -40,6 +40,14 @@ jobs:
           path: build
       - name: List files in the repository
         run: ls ${{ github.workspace }}/build
+      - uses: actions/download-artifact@v3
+          with:
+            name: Build
+            path: build
+        - run: zip -r socket-minesweeper-app-windows.zip build/
+        - uses: ncipollo/release-action@v1
+          with:
+            artifacts: "socket-minesweeper-app-windows.zip"
       # - name: Create release
       #   id: create_release
       #   uses: actions/create-release@v1
