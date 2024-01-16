@@ -11,7 +11,7 @@ const Header: React.FC<HeaderProps> = ({ pathname }) => {
   return (
     <nav>
       <ul>
-        <li className={"/" === pathname ? 'active' : ''}>
+        <li className={"/" === pathname || "/index.html" === pathname ? 'active' : ''}>
           <Link to="/">Minesweeper</Link>
         </li>
         {/* 

@@ -6,10 +6,13 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
+    "build:socket": "vite build --base=./ . --outDir=./dist",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start": "ssc build -r",
-    "build:desktop": "ssc build",
+    "start": "vite build && ssc build -r",
+    "version": "ssc -v",
+    "build:win": "dir && ssc build",
+    "build:ubuntu": "ssc build",
     "build:android": "ssc build --platform=android",
     "build:ios": "ssc build --platform=android"
   },

@@ -29,8 +29,8 @@ const Cell: React.FC<CellProps> = ({ x, y }) => {
     <div className={className}
       onClick={(e) => {
         e.preventDefault();
-        console.log(`${!_cell.isFlagged && !_cell.isChecked} if true, then onSelected()`)
-        console.log(`${_cell.neighborCount} if true, then action.revealChecked(${x}, ${y})`)
+        // console.log(`${!_cell.isFlagged && !_cell.isChecked} if true, then onSelected()`)
+        // console.log(`${_cell.neighborCount} if true, then action.revealChecked(${x}, ${y})`)
         if (!_cell.isFlagged && !_cell.isChecked) {
           // LOST
           if (_cell.isMine) return action.setGameStatus(GAME_STATUS.LOST)
