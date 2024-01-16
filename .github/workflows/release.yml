@@ -1,6 +1,6 @@
 # Create build command to package windows executable
-name: Build socket supply app for windows
-run-name: windows-build
+name: Build socket supply app for release
+run-name: release-build
 on:
   push:
     tags:        # Remove the `branches` node and add this one
