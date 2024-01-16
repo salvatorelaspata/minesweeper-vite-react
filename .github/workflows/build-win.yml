@@ -27,6 +27,8 @@ jobs:
         run: ssc --version
       - name: Install dependencies
         run: npm ci
+      - name: Vite Build
+        run: npm run build
       - name: Build
         run: npm run build:win
       - name: List files in the repository

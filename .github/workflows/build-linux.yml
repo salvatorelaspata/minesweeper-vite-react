@@ -4,7 +4,7 @@ run-name: linux-build
 on:
   push:
     branches:
-      - develop
+      - _develop
 jobs:
   build:
     name: Build
