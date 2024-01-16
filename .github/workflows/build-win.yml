@@ -55,8 +55,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: socket-minesweeper-app-windows
-          asset_path: build/socket-minesweeper-app-windows.zip
-          asset_name: socket-minesweeper-app-windows--v${{ github.ref }}.zip
+          upload_url: build/win
+          asset_path: build/win
+          asset_name: socket-minesweeper-app-windows.zip
           asset_content_type: application/zip
       #     # application/octet-stream
