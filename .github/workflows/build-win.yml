@@ -50,15 +50,15 @@ jobs:
       #     release_name: Release ${{ github.ref }}
       #     draft: false
       #     prerelease: false
-      - name: Zip build folder
-        run: 7z a -tzip build/socket-minesweeper-app-windows.zip build
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: build/socket-minesweeper-app-windows.zip
-          asset_path: build/socket-minesweeper-app-windows.zip
-          asset_name: socket-minesweeper-app-windows--asset.zip
-          asset_content_type: application/zip
+      # - name: Zip build folder
+      #   run: 7z a -tzip build/socket-minesweeper-app-windows.zip build
+      # - name: Upload release asset
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: build/socket-minesweeper-app-windows.zip
+      #     asset_path: build/socket-minesweeper-app-windows.zip
+      #     asset_name: socket-minesweeper-app-windows--asset.zip
+      #     asset_content_type: application/zip
       #     # application/octet-stream
