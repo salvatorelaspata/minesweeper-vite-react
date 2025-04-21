@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from "react-router-dom";
 
 import App from './App'
+import { registerServiceWorker } from './registerSW';
+
+// Register service worker for PWA support
+registerServiceWorker();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
